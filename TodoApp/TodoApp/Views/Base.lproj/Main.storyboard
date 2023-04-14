@@ -46,7 +46,7 @@ CA
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JdQ-yI-3OR">
                             <connections>
                                 <action selector="AddButton:" destination="BIl-f4-NNU" id="745-de-Ngi"/>
-                                <segue destination="dfo-MH-ISd" kind="show" id="zeb-DM-6fI"/>
+                                <segue destination="dfo-MH-ISd" kind="show" identifier="goToTaskCreator" id="zeb-DM-6fI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -55,39 +55,66 @@ CA
             </objects>
             <point key="canvasLocation" x="782" y="4"/>
         </scene>
-        <!--View Controller-->
+        <!--Task CreatorVC-->
         <scene sceneID="SYB-Jg-yLV">
             <objects>
-                <viewController id="dfo-MH-ISd" sceneMemberID="viewController">
+                <viewController id="dfo-MH-ISd" customClass="TaskCreatorVC" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hJk-up-a69">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHT-dd-fre">
-                                <rect key="frame" x="148" y="211" width="97" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="bdm-PJ-DEB">
-                                <rect key="frame" x="-14" y="253" width="393" height="186"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </datePicker>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="raE-0K-593">
-                                <rect key="frame" x="0.0" y="428" width="393" height="162"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVK-u9-Fi5">
-                                <rect key="frame" x="159" y="707" width="75" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="sgs-GT-mqb">
+                                <rect key="frame" x="8" y="127" width="377" height="591"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" restorationIdentifier="taskNote" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Note" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHT-dd-fre">
+                                        <rect key="frame" x="24" y="0.0" width="329" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="D5I-Uf-WMg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <datePicker contentMode="scaleToFill" restorationIdentifier="datePicker" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="bdm-PJ-DEB">
+                                        <rect key="frame" x="27" y="138" width="323" height="111"/>
+                                    </datePicker>
+                                    <pickerView contentMode="scaleToFill" restorationIdentifier="categoryPicker" translatesAutoresizingMaskIntoConstraints="NO" id="raE-0K-593">
+                                        <rect key="frame" x="29" y="287" width="320" height="216"/>
+                                    </pickerView>
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="saveButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVK-u9-Fi5">
+                                        <rect key="frame" x="80" y="541" width="217" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Tuc-3P-dhQ"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Save"/>
+                                        <connections>
+                                            <action selector="saveButton:" destination="dfo-MH-ISd" eventType="touchUpInside" id="V3h-fZ-0Ak"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="sVK-u9-Fi5" firstAttribute="leading" secondItem="sgs-GT-mqb" secondAttribute="leading" constant="80" id="T3g-wY-hTJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="fHT-dd-fre" secondAttribute="trailing" constant="24" id="WKX-Zo-cqa"/>
+                                    <constraint firstItem="fHT-dd-fre" firstAttribute="leading" secondItem="sgs-GT-mqb" secondAttribute="leading" constant="24" id="fsz-cX-7fs"/>
+                                    <constraint firstAttribute="trailing" secondItem="sVK-u9-Fi5" secondAttribute="trailing" constant="80" id="pNe-gQ-iAA"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xZC-sD-LNU"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sgs-GT-mqb" firstAttribute="leading" secondItem="hJk-up-a69" secondAttribute="leading" constant="8" id="RoZ-Rp-xTG"/>
+                            <constraint firstItem="xZC-sD-LNU" firstAttribute="trailing" secondItem="sgs-GT-mqb" secondAttribute="trailing" constant="8" id="Zck-fJ-uHs"/>
+                            <constraint firstItem="sgs-GT-mqb" firstAttribute="top" secondItem="xZC-sD-LNU" secondAttribute="top" constant="24" id="r38-ct-xBC"/>
+                            <constraint firstItem="xZC-sD-LNU" firstAttribute="bottom" secondItem="sgs-GT-mqb" secondAttribute="bottom" constant="100" id="tYp-my-f5L"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Sq2-3I-pzv"/>
+                    <connections>
+                        <outlet property="categoryPicker" destination="raE-0K-593" id="OdL-k9-l25"/>
+                        <outlet property="datePicker" destination="bdm-PJ-DEB" id="Pbq-gE-ggG"/>
+                        <outlet property="taskNoteTextField" destination="fHT-dd-fre" id="na2-nn-KWQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpd-JR-xcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
