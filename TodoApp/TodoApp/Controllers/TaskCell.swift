@@ -10,9 +10,14 @@ import CoreData
 
 class TaskCell: UITableViewCell {
     
+    @IBOutlet weak var taskBuble: UIView!
+    @IBOutlet weak var taskName: UILabel!
+    @IBOutlet weak var taskDate: UILabel!
+    @IBOutlet weak var taskCategory: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        taskBuble.layer.cornerRadius = 8
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -20,12 +25,6 @@ class TaskCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    @IBOutlet weak var taskName: UILabel!
-    
-    @IBOutlet weak var taskDate: UILabel!
-    
-    @IBOutlet weak var taskCategory: UILabel!
     
     func setName(text: String) {
         taskName.text = text

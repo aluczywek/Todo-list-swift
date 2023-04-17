@@ -13,7 +13,9 @@ class ViewController: UITableViewController {
     let cellIdentifier = "TaskCell"
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-
+    
+    @IBOutlet weak var defaultLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Todo List"
@@ -30,21 +32,29 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tasks.count != 0 {
+            defaultLabel.isHidden = true
             return tasks.count
         } else {
-            return 1
+            defaultLabel.isHidden = false
+            return 0
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TaskCell
+        let taskCategory = tasks[indexPath.row].category
         
-        if tasks.count != 0 {
-            cell.setName(text: tasks[indexPath.row].name!)
-            cell.setCategory(category: tasks[indexPath.row].category!)
-            cell.setDate(date: tasks[indexPath.row].date!)
+        cell.setName(text: tasks[indexPath.row].name!)
+        cell.setCategory(category: tasks[indexPath.row].category!)
+        cell.setDate(date: tasks[indexPath.row].date!)
+        if taskCategory == "Home" {
+            cell.taskBuble.backgroundColor = .systemMint
+        } else if taskCategory == "Work" {
+            cell.taskBuble.backgroundColor = .systemTeal
+        } else if taskCategory == "Other" {
+            cell.taskBuble.backgroundColor = .systemGreen
         } else {
-            cell.setName(text: "No tasks")
+            cell.taskBuble.backgroundColor = .systemGray
         }
         return cell
     }
@@ -53,7 +63,7 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
-
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return.delete
     }

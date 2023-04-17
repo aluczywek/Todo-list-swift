@@ -10,7 +10,7 @@ import CoreData
 
 class TaskCreatorVC: UITableViewController {
     
-    var category = ""
+    var category = "Home"
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     @IBOutlet weak var taskNoteTextField: UITextField!
@@ -23,12 +23,8 @@ class TaskCreatorVC: UITableViewController {
     //MARK: - Segmented Control
     
     @IBAction func categotySegmentedControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            category = "Home"
-        }
-        else if sender.selectedSegmentIndex == 1 {
+        if sender.selectedSegmentIndex == 1 {
             category = "Work"
-            
         } else {
             category = "Other"
         }
