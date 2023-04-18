@@ -36,8 +36,16 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUL-OK-Eei">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="zsn-Cc-n2N">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="BIl-f4-NNU" id="qeS-gK-ZMm"/>
+                            </connections>
+                        </searchBar>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUL-OK-Eei">
+                            <rect key="frame" x="0.0" y="808" width="393" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="27"/>
                             <nil key="textColor"/>
@@ -57,6 +65,7 @@ CA
                     </navigationItem>
                     <connections>
                         <outlet property="defaultLabel" destination="QUL-OK-Eei" id="jlR-er-RYk"/>
+                        <outlet property="searchBar" destination="zsn-Cc-n2N" id="yO6-cA-fZ5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cp6-f1-kWg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -10,10 +10,11 @@ import CoreData
 
 class ViewController: UITableViewController {
     var tasks = [TodoTask]()
+    var filteredTasks = [TodoTask]()
     let cellIdentifier = "TaskCell"
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var defaultLabel: UILabel!
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class ViewController: UITableViewController {
         title = "Todo List"
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         loadTasks()
+        filteredTasks = tasks
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,9 +33,9 @@ class ViewController: UITableViewController {
     //MARK: - TableView DataSource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tasks.count != 0 {
+        if filteredTasks.count != 0 {
             defaultLabel.isHidden = true
-            return tasks.count
+            return filteredTasks.count
         } else {
             defaultLabel.isHidden = false
             return 0
@@ -42,11 +44,11 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TaskCell
-        let taskCategory = tasks[indexPath.row].category
+        let taskCategory = filteredTasks[indexPath.row].category
         
-        cell.setName(text: tasks[indexPath.row].name!)
-        cell.setCategory(category: tasks[indexPath.row].category!)
-        cell.setDate(date: tasks[indexPath.row].date!)
+        cell.setName(text: filteredTasks[indexPath.row].name!)
+        cell.setCategory(category: filteredTasks[indexPath.row].category!)
+        cell.setDate(date: filteredTasks[indexPath.row].date!)
         if taskCategory == "Home" {
             cell.taskBuble.backgroundColor = .systemMint
         } else if taskCategory == "Work" {
@@ -73,6 +75,7 @@ class ViewController: UITableViewController {
             tableView.beginUpdates()
             context.delete(tasks[indexPath.row])
             tasks.remove(at: indexPath.row)
+            filteredTasks = tasks
             tableView.deleteRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
         }
@@ -96,6 +99,7 @@ class ViewController: UITableViewController {
         let request: NSFetchRequest<TodoTask> = TodoTask.fetchRequest()
         do {
             tasks = try context.fetch(request)
+            filteredTasks = tasks
         } catch {
             print("Error fetching data from context.")
         }
@@ -103,3 +107,22 @@ class ViewController: UITableViewController {
     }
 }
 
+//MARK: - Search bar methods
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchBar.text != "" {
+            filteredTasks = tasks.filter { task in
+                guard let name = task.name?.uppercased()
+                else {
+                    return false
+                }
+                return name.contains(searchText.uppercased())
+            }
+            tableView.reloadData()
+        } else {
+            loadTasks()
+        }
+    }
+}
