@@ -38,11 +38,22 @@ class TaskCreatorVC: UITableViewController {
     }
     
     fileprivate func showSuccesAlert() {
-        let dialogMessage = UIAlertController(title: "Succes!", message: "New task created", preferredStyle: .alert)
+        let dialogMessage = UIAlertController(title: "Success!", message: "New task created", preferredStyle: .actionSheet)
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             self.navigationController?.popToRootViewController(animated: true)
         })
         dialogMessage.addAction(ok)
+        self.present(dialogMessage, animated: true)
+    }
+    
+    fileprivate func showFailAlert() {
+        let dialogMessage = UIAlertController(title: "Fail", message: "Error saving data", preferredStyle: .actionSheet)
+        let tryAgainButton = UIAlertAction(title: "Try again", style: .default, handler: { (action) -> Void in
+            self.saveNewTask()
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        dialogMessage.addAction(tryAgainButton)
+        dialogMessage.addAction(cancel)
         self.present(dialogMessage, animated: true)
     }
     
@@ -52,6 +63,7 @@ class TaskCreatorVC: UITableViewController {
             showSuccesAlert()
         } catch {
             print("Error saving context \(error)")
+            showFailAlert()
         }
     }
     

@@ -52,12 +52,13 @@ class ViewController: UITableViewController {
         if taskCategory == "Home" {
             cell.taskBuble.backgroundColor = .systemMint
         } else if taskCategory == "Work" {
-            cell.taskBuble.backgroundColor = .systemTeal
+            cell.taskBuble.backgroundColor = .systemCyan
         } else if taskCategory == "Other" {
             cell.taskBuble.backgroundColor = .systemGreen
-        } else {
-            cell.taskBuble.backgroundColor = .systemGray
         }
+//        else {
+//            cell.taskBuble.backgroundColor = .systemGray
+//        }
         return cell
     }
     
@@ -72,12 +73,19 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            tableView.beginUpdates()
-            context.delete(tasks[indexPath.row])
-            tasks.remove(at: indexPath.row)
-            filteredTasks = tasks
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            tableView.endUpdates()
+            let alert = UIAlertController(title: nil, message: "Are you sure you'd like to delete this task?", preferredStyle: .actionSheet)
+            let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
+                tableView.beginUpdates()
+                self.context.delete(self.tasks[indexPath.row])
+                self.tasks.remove(at: indexPath.row)
+                self.filteredTasks = self.tasks
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.endUpdates()
+            }
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alert.addAction(cancel)
+            alert.addAction(delete)
+            present(alert, animated: true)
         }
         do {
             try context.save()
@@ -85,6 +93,7 @@ class ViewController: UITableViewController {
             print("Error saving context \(error)")
         }
     }
+    
     
     
     //MARK: - Add new task
