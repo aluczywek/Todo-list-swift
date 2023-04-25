@@ -21,11 +21,10 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
         title = "Todo List"
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
-        loadTasks()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        loadTasks()
+        loadTasksAndReloadTableView()
     }
     
     //MARK: - TableView DataSource Methods
@@ -42,12 +41,12 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! TaskCell
-        let taskCategory = filteredTasks[indexPath.row].category
         
         cell.setName(text: filteredTasks[indexPath.row].name!)
         cell.setCategory(category: filteredTasks[indexPath.row].category!)
         cell.setDate(date: filteredTasks[indexPath.row].date!)
         
+        let taskCategory = filteredTasks[indexPath.row].category
         if taskCategory == "Home" {
             cell.taskBuble.backgroundColor = .systemMint
         } else if taskCategory == "Work" {
@@ -64,38 +63,62 @@ class ViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return.delete
+        return .delete
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let alert = UIAlertController(title: nil, message: "Are you sure you'd like to delete this task?", preferredStyle: .actionSheet)
-            let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
-                self.context.delete(self.filteredTasks[indexPath.row])
-                do {
-                    try self.context.save()
-                } catch {
-                    print("Error saving context \(error)")
-                }
-                self.loadTasks()
-                self.filterTasksUsing(searchText: self.searchBar.text ?? "")
-            }
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alert.addAction(cancel)
-            alert.addAction(delete)
+            let alert = self.createDeleteAlert(indexPath: indexPath)
             present(alert, animated: true)
         }
     }
     
-    //MARK: - Add new task
+    //MARK: - IBAction func
     
     @IBAction func AddButton(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "goToTaskCreator", sender: self)
     }
+}
+
+//MARK: - UISearchBarDelegate
+
+extension ViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterTasksUsing(searchText: searchText)
+    }
+}
+
+// MARK: - Private func
+
+private extension ViewController {
+    func createDeleteAlert(indexPath: IndexPath) -> UIAlertController {
+        let alert = UIAlertController(title: nil, message: "Are you sure you'd like to delete this task?", preferredStyle: .actionSheet)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteTaskFromDB(indexPath: indexPath)
+            self.loadTasksAndReloadTableView()
+            self.filterTasksUsing(searchText: self.searchBar.text ?? "")
+        }
+
+        alert.addAction(cancel)
+        alert.addAction(delete)
+        
+        return alert
+    }
     
     //MARK: - Data manipulation methods
     
-    func loadTasks() {
+    func deleteTaskFromDB(indexPath: IndexPath) {
+        self.context.delete(self.filteredTasks[indexPath.row])
+        do {
+            try self.context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
+    
+    func loadTasksAndReloadTableView() {
         let request: NSFetchRequest<TodoTask> = TodoTask.fetchRequest()
         do {
             tasks = try context.fetch(request)
@@ -105,12 +128,8 @@ class ViewController: UITableViewController {
         }
         tableView.reloadData()
     }
-}
-
-//MARK: - Search bar methods
-
-extension ViewController: UISearchBarDelegate {
-    fileprivate func filterTasksUsing(searchText: String) {
+    
+    func filterTasksUsing(searchText: String) {
         if searchText != "" {
             filteredTasks = tasks.filter { task in
                 guard let name = task.name?.uppercased()
@@ -121,11 +140,7 @@ extension ViewController: UISearchBarDelegate {
             }
             tableView.reloadData()
         } else {
-            loadTasks()
+            loadTasksAndReloadTableView()
         }
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterTasksUsing(searchText: searchText)
     }
 }

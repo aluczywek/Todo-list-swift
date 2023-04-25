@@ -20,7 +20,7 @@ class TaskCreatorVC: UITableViewController {
         super.viewDidLoad()
     }
     
-    //MARK: - Segmented Control
+    //MARK: - IBAction func
     
     @IBAction func categotySegmentedControl(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1 {
@@ -30,14 +30,30 @@ class TaskCreatorVC: UITableViewController {
         }
     }
     
-    //MARK: - Saving new task
-    
     @IBAction func saveButton(_ sender: UIButton) {
         createNewTask()
         saveNewTask()
     }
     
-    fileprivate func showSuccesAlert() {
+    @IBAction func cancelButton(_ sender: UIButton) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+//MARK: - Private func
+
+private extension TaskCreatorVC {
+    func saveNewTask() {
+        do {
+            try context.save()
+            showSuccessAlert()
+        } catch {
+            print("Error saving context \(error)")
+            showFailAlert()
+        }
+    }
+    
+    func showSuccessAlert() {
         let dialogMessage = UIAlertController(title: "Success!", message: "New task created", preferredStyle: .actionSheet)
         let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
             self.navigationController?.popToRootViewController(animated: true)
@@ -46,40 +62,23 @@ class TaskCreatorVC: UITableViewController {
         self.present(dialogMessage, animated: true)
     }
     
-    fileprivate func showFailAlert() {
+    func showFailAlert() {
         let dialogMessage = UIAlertController(title: "Fail", message: "Error saving data", preferredStyle: .actionSheet)
         let tryAgainButton = UIAlertAction(title: "Try again", style: .default, handler: { (action) -> Void in
             self.saveNewTask()
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         dialogMessage.addAction(tryAgainButton)
         dialogMessage.addAction(cancel)
+        
         self.present(dialogMessage, animated: true)
     }
-    
-    func saveNewTask() {
-        do {
-            try context.save()
-            showSuccesAlert()
-        } catch {
-            print("Error saving context \(error)")
-            showFailAlert()
-        }
-    }
-    
-    //MARK: - Create new task
-    
+        
     func createNewTask() {
         let newTask = TodoTask(context: self.context)
         newTask.name = taskNoteTextField.text ?? ""
         newTask.date = datePicker.date
         newTask.category = category
     }
-    
-    // MARK: - Cancel Button
-    
-    @IBAction func cancelButton(_ sender: UIButton) {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
 }
