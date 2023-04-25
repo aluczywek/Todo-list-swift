@@ -22,12 +22,10 @@ class ViewController: UITableViewController {
         title = "Todo List"
         tableView.register(UINib(nibName: cellIdentifier, bundle: nil), forCellReuseIdentifier: cellIdentifier)
         loadTasks()
-        filteredTasks = tasks
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loadTasks()
-        tableView.reloadData()
     }
     
     //MARK: - TableView DataSource Methods
@@ -49,6 +47,7 @@ class ViewController: UITableViewController {
         cell.setName(text: filteredTasks[indexPath.row].name!)
         cell.setCategory(category: filteredTasks[indexPath.row].category!)
         cell.setDate(date: filteredTasks[indexPath.row].date!)
+        
         if taskCategory == "Home" {
             cell.taskBuble.backgroundColor = .systemMint
         } else if taskCategory == "Work" {
@@ -56,9 +55,6 @@ class ViewController: UITableViewController {
         } else if taskCategory == "Other" {
             cell.taskBuble.backgroundColor = .systemGreen
         }
-//        else {
-//            cell.taskBuble.backgroundColor = .systemGray
-//        }
         return cell
     }
     
@@ -75,26 +71,21 @@ class ViewController: UITableViewController {
         if editingStyle == .delete {
             let alert = UIAlertController(title: nil, message: "Are you sure you'd like to delete this task?", preferredStyle: .actionSheet)
             let delete = UIAlertAction(title: "Delete", style: .destructive) { _ in
-                tableView.beginUpdates()
-                self.context.delete(self.tasks[indexPath.row])
-                self.tasks.remove(at: indexPath.row)
-                self.filteredTasks = self.tasks
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.endUpdates()
+                self.context.delete(self.filteredTasks[indexPath.row])
+                do {
+                    try self.context.save()
+                } catch {
+                    print("Error saving context \(error)")
+                }
+                self.loadTasks()
+                self.filterTasksUsing(searchText: self.searchBar.text ?? "")
             }
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(cancel)
             alert.addAction(delete)
             present(alert, animated: true)
         }
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
     }
-    
-    
     
     //MARK: - Add new task
     
@@ -119,9 +110,8 @@ class ViewController: UITableViewController {
 //MARK: - Search bar methods
 
 extension ViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchBar.text != "" {
+    fileprivate func filterTasksUsing(searchText: String) {
+        if searchText != "" {
             filteredTasks = tasks.filter { task in
                 guard let name = task.name?.uppercased()
                 else {
@@ -133,5 +123,9 @@ extension ViewController: UISearchBarDelegate {
         } else {
             loadTasks()
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filterTasksUsing(searchText: searchText)
     }
 }

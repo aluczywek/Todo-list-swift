@@ -32,7 +32,7 @@
                     <string key="storyboardIdentifier" base64-UTF8="YES">
 CA
 </string>
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="dua-yM-qTe">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="dua-yM-qTe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -47,8 +47,8 @@ CA
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No tasks" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QUL-OK-Eei">
                             <rect key="frame" x="0.0" y="808" width="393" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <connections>
@@ -76,13 +76,13 @@ CA
         <scene sceneID="7Ik-ZA-EaH">
             <objects>
                 <tableViewController id="39f-KC-XOj" customClass="TaskCreatorVC" customModule="TodoApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Fkh-Bv-lXn">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Fkh-Bv-lXn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="eQ6-u2-ZdZ">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="738"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="398"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Note" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rWY-2N-E5Q">
                                     <rect key="frame" x="32" y="16" width="329" height="32"/>
@@ -107,7 +107,7 @@ CA
                                         <action selector="categotySegmentedControl:" destination="39f-KC-XOj" eventType="valueChanged" id="AD9-MW-l4w"/>
                                     </connections>
                                 </segmentedControl>
-                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="DVV-kk-gpV">
+                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="DVV-kk-gpV">
                                     <rect key="frame" x="32" y="104" width="329" height="216"/>
                                 </datePicker>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="38" translatesAutoresizingMaskIntoConstraints="NO" id="ESz-m6-Svr">
@@ -147,6 +147,7 @@ CA
                                 <constraint firstItem="DVV-kk-gpV" firstAttribute="leading" secondItem="eQ6-u2-ZdZ" secondAttribute="leading" constant="32" id="C8O-Xz-xmo"/>
                                 <constraint firstAttribute="trailing" secondItem="6dL-Se-hnK" secondAttribute="trailing" constant="32" id="GGb-Ml-aaC"/>
                                 <constraint firstItem="rWY-2N-E5Q" firstAttribute="top" secondItem="eQ6-u2-ZdZ" secondAttribute="top" constant="16" id="V7a-l3-y1B"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ESz-m6-Svr" secondAttribute="bottom" constant="8" id="aio-ZU-5LB"/>
                                 <constraint firstAttribute="trailing" secondItem="rWY-2N-E5Q" secondAttribute="trailing" constant="32" id="gOX-79-RBE"/>
                                 <constraint firstItem="rWY-2N-E5Q" firstAttribute="leading" secondItem="eQ6-u2-ZdZ" secondAttribute="leading" constant="32" id="gmD-af-hax"/>
                                 <constraint firstItem="DVV-kk-gpV" firstAttribute="top" secondItem="6dL-Se-hnK" secondAttribute="bottom" constant="8" id="jk0-Bo-yit"/>
@@ -168,7 +169,7 @@ CA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ssx-rW-fu6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1465" y="4"/>
+            <point key="canvasLocation" x="1461.8320610687022" y="0.70422535211267612"/>
         </scene>
     </scenes>
     <resources>

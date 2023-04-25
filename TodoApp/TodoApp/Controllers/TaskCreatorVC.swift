@@ -12,7 +12,7 @@ class TaskCreatorVC: UITableViewController {
     
     var category = "Home"
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     @IBOutlet weak var taskNoteTextField: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     
@@ -75,7 +75,7 @@ class TaskCreatorVC: UITableViewController {
         newTask.date = datePicker.date
         newTask.category = category
     }
-   
+    
     // MARK: - Cancel Button
     
     @IBAction func cancelButton(_ sender: UIButton) {
