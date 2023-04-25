@@ -20,42 +20,42 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7R-GB-Fq8">
                         <rect key="frame" x="2" y="2" width="464" height="197"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dyq-Bb-3Ly">
-                                <rect key="frame" x="8" y="2" width="448" height="193"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" restorationIdentifier="taskName" text="text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-W5-DFM" userLabel="taskName">
-                                        <rect key="frame" x="0.0" y="0.0" width="448" height="109"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="taskDate" text="31.12.2000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPA-YI-7Cp" userLabel="taskDate">
-                                        <rect key="frame" x="0.0" y="126" width="448" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="avD-Si-7h2"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="taskCategory" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4l-CT-PKp" userLabel="taskCategory">
-                                        <rect key="frame" x="0.0" y="168" width="448" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="25" id="2TL-gu-H59"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" restorationIdentifier="taskName" text="text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q3z-W5-DFM" userLabel="taskName">
+                                <rect key="frame" x="8" y="41" width="448" height="148"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="taskCategory" text="category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4l-CT-PKp" userLabel="taskCategory">
+                                <rect key="frame" x="8" y="8" width="348.33333333333331" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="2TL-gu-H59"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" restorationIdentifier="taskDate" text="31.12.2000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPA-YI-7Cp" userLabel="taskDate">
+                                <rect key="frame" x="364.33333333333331" y="8" width="91.666666666666686" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="avD-Si-7h2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                         <constraints>
-                            <constraint firstItem="Dyq-Bb-3Ly" firstAttribute="leading" secondItem="Y7R-GB-Fq8" secondAttribute="leading" constant="8" id="GRp-qh-ja2"/>
-                            <constraint firstAttribute="trailing" secondItem="Dyq-Bb-3Ly" secondAttribute="trailing" constant="8" id="Mnr-E5-6UA"/>
-                            <constraint firstAttribute="bottom" secondItem="Dyq-Bb-3Ly" secondAttribute="bottom" constant="2" id="t1c-vs-iFZ"/>
-                            <constraint firstItem="Dyq-Bb-3Ly" firstAttribute="top" secondItem="Y7R-GB-Fq8" secondAttribute="top" constant="2" id="zjc-Do-14s"/>
+                            <constraint firstAttribute="bottom" secondItem="q3z-W5-DFM" secondAttribute="bottom" constant="8" id="8qz-Wu-g9V"/>
+                            <constraint firstItem="r4l-CT-PKp" firstAttribute="leading" secondItem="Y7R-GB-Fq8" secondAttribute="leading" constant="8" id="Dsh-hW-bmN"/>
+                            <constraint firstItem="aPA-YI-7Cp" firstAttribute="top" secondItem="Y7R-GB-Fq8" secondAttribute="top" constant="8" id="LUs-W3-O3f"/>
+                            <constraint firstItem="r4l-CT-PKp" firstAttribute="top" secondItem="Y7R-GB-Fq8" secondAttribute="top" constant="8" id="P6t-qm-eco"/>
+                            <constraint firstAttribute="trailing" secondItem="aPA-YI-7Cp" secondAttribute="trailing" constant="8" id="W0V-ft-ytY"/>
+                            <constraint firstItem="aPA-YI-7Cp" firstAttribute="leading" secondItem="r4l-CT-PKp" secondAttribute="trailing" constant="8" id="bvF-nW-fvh"/>
+                            <constraint firstItem="q3z-W5-DFM" firstAttribute="leading" secondItem="Y7R-GB-Fq8" secondAttribute="leading" constant="8" id="eKh-15-1b7"/>
+                            <constraint firstItem="q3z-W5-DFM" firstAttribute="top" secondItem="r4l-CT-PKp" secondAttribute="bottom" constant="8" id="rYM-sE-ywG"/>
+                            <constraint firstAttribute="trailing" secondItem="q3z-W5-DFM" secondAttribute="trailing" constant="8" id="whS-XS-H9U"/>
                         </constraints>
                     </view>
                 </subviews>
