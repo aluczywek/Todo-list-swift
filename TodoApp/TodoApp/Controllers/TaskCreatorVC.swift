@@ -23,7 +23,9 @@ class TaskCreatorVC: UITableViewController {
     //MARK: - IBAction func
     
     @IBAction func categotySegmentedControl(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1 {
+        if sender.selectedSegmentIndex == 0 {
+            category = "Home"
+        } else if sender.selectedSegmentIndex == 1 {
             category = "Work"
         } else {
             category = "Other"

@@ -36,5 +36,13 @@ class TaskCell: UITableViewCell {
     
     func setCategory (category: String) {
         taskCategory.text = category
+        
+        if category == "Home" {
+            taskBuble.backgroundColor = .systemMint
+        } else if category == "Work" {
+            taskBuble.backgroundColor = .systemCyan
+        } else if category == "Other" {
+            taskBuble.backgroundColor = .systemGreen
+        }
     }
 }

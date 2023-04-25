@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UITableViewController {
+class ListVC: UITableViewController {
     var tasks = [TodoTask]()
     var filteredTasks = [TodoTask]()
     let cellIdentifier = "TaskCell"
@@ -46,14 +46,6 @@ class ViewController: UITableViewController {
         cell.setCategory(category: filteredTasks[indexPath.row].category!)
         cell.setDate(date: filteredTasks[indexPath.row].date!)
         
-        let taskCategory = filteredTasks[indexPath.row].category
-        if taskCategory == "Home" {
-            cell.taskBuble.backgroundColor = .systemMint
-        } else if taskCategory == "Work" {
-            cell.taskBuble.backgroundColor = .systemCyan
-        } else if taskCategory == "Other" {
-            cell.taskBuble.backgroundColor = .systemGreen
-        }
         return cell
     }
     
@@ -82,7 +74,7 @@ class ViewController: UITableViewController {
 
 //MARK: - UISearchBarDelegate
 
-extension ViewController: UISearchBarDelegate {
+extension ListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterTasksUsing(searchText: searchText)
     }
@@ -90,7 +82,7 @@ extension ViewController: UISearchBarDelegate {
 
 // MARK: - Private func
 
-private extension ViewController {
+private extension ListVC {
     func createDeleteAlert(indexPath: IndexPath) -> UIAlertController {
         let alert = UIAlertController(title: nil, message: "Are you sure you'd like to delete this task?", preferredStyle: .actionSheet)
         
